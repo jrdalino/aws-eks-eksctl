@@ -1,13 +1,13 @@
 # AWS Elastic Kubernetes Service (EKS) using EKSCTL
 
-## Module 3: Install Kubernetes Tools and Launch EKS using EKCTL
+## Step 1: Install Kubernetes Tools and Launch EKS using EKCTL
 
-### Step 3.1: Create the default ~/.kube directory for storing kubectl configuration
+### Step 1.1: Create the default ~/.kube directory for storing kubectl configuration
 ```
 $ mkdir -p ~/.kube
 ```
 
-### Step 3.2: Install kubectl on MAC
+### Step 1.2: Install kubectl on MAC
 ```
 $ sudo curl -o kubectl "https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/darwin/amd64/kubectl"
 $ sudo chmod +x ./kubectl
@@ -16,20 +16,20 @@ $ echo 'export PATH=$HOME/bin:$PATH' >> ~/.bash_profile
 $ kubectl version --short --client
 ```
 
-### Step 3.3: Install IAM Authenticator
+### Step 1.3: Install IAM Authenticator
 ```
 $ brew install aws-iam-authenticator
 $ aws-iam-authenticator help
 ```
 
-### Step 3.4: Install JQ and envsubst
+### Step 1.4: Install JQ and envsubst
 ```
 $ brew install jq
 $ brew install gettext
 $ brew link --force gettext
 ```
 
-### Step 3.5: Verify the binaries are in the path and executable
+### Step 1.5: Verify the binaries are in the path and executable
 ```
 $ for command in kubectl aws-iam-authenticator jq envsubst
   do
@@ -37,19 +37,19 @@ $ for command in kubectl aws-iam-authenticator jq envsubst
   done
 ```
 
-### Step 3.6: Generate an SSH Key for the Worker Nodes and upload the public key to your EC2 region
+### Step 1.6: Generate an SSH Key for the Worker Nodes and upload the public key to your EC2 region
 ```
 $ ssh-keygen
 $ aws ec2 import-key-pair --key-name "eksworkernodes" --public-key-material file://~/.ssh/id_rsa.pub
 ```
 
-### Step 3.7: Download the eksctl binaries
+### Step 1.7: Download the eksctl binaries
 ```
 $ brew install weaveworks/tap/eksctl
 $ eksctl version
 ```
 
-### Step 3.8: Create an EKS Cluster (This will take ~15 minutes) and test cluster
+### Step 1.8: Create an EKS Cluster (This will take ~15 minutes) and test cluster
 ```
 $ eksctl create cluster \
 --name=calculator-eksctl \
@@ -89,7 +89,7 @@ $ kubectl get nodes
 [✔]  EKS cluster "calculator-eksctl" in "us-east-1" region is ready
 ```
 
-### Step 3.9: Export Worker Role name
+### Step 1.9: Export Worker Role name
 ```
 $ INSTANCE_PROFILE_NAME=$(aws iam list-instance-profiles | jq -r '.InstanceProfiles[].InstanceProfileName' | grep nodegroup)
 $ ROLE_NAME=$(aws iam get-instance-profile --instance-profile-name $INSTANCE_PROFILE_NAME | jq -r '.InstanceProfile.Roles[] | .RoleName')
