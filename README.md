@@ -52,7 +52,7 @@ $ eksctl version
 ### Step 1.8: Create an EKS Cluster (This will take ~15 minutes) and test cluster
 ```
 $ eksctl create cluster \
---name=calculator-eksctl \
+--name=myproject-eksctl \
 --nodes=2 \
 --node-ami=auto \
 --node-type=t2.small \ 
@@ -66,19 +66,19 @@ $ kubectl get nodes
 [ℹ]  subnets for us-east-1d - public:192.168.0.0/19 private:192.168.64.0/19
 [ℹ]  subnets for us-east-1a - public:192.168.32.0/19 private:192.168.96.0/19
 [ℹ]  nodegroup "ng-2e8e1187" will use "ami-0abcb9f9190e867ab" [AmazonLinux2/1.12]
-[ℹ]  creating EKS cluster "calculator-eksctl" in "us-east-1" region
+[ℹ]  creating EKS cluster "myproject-eksctl" in "us-east-1" region
 [ℹ]  will create 2 separate CloudFormation stacks for cluster itself and the initial nodegroup
-[ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=us-east-1 --name=calculator-eksctl'
-[ℹ]  2 sequential tasks: { create cluster control plane "calculator-eksctl", create nodegroup "ng-2e8e1187" }
-[ℹ]  building cluster stack "eksctl-calculator-eksctl-cluster"
-[ℹ]  deploying stack "eksctl-calculator-eksctl-cluster"
-[ℹ]  buildings nodegroup stack "eksctl-calculator-eksctl-nodegroup-ng-2e8e1187"
+[ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=us-east-1 --name=myproject-eksctl'
+[ℹ]  2 sequential tasks: { create cluster control plane "myproject-eksctl", create nodegroup "ng-2e8e1187" }
+[ℹ]  building cluster stack "eksctl-myproject-eksctl-cluster"
+[ℹ]  deploying stack "eksctl-myproject-eksctl-cluster"
+[ℹ]  buildings nodegroup stack "eksctl-myproject-eksctl-nodegroup-ng-2e8e1187"
 [ℹ]  --nodes-min=2 was set automatically for nodegroup ng-2e8e1187
 [ℹ]  --nodes-max=2 was set automatically for nodegroup ng-2e8e1187
-[ℹ]  deploying stack "eksctl-calculator-eksctl-nodegroup-ng-2e8e1187"
-[✔]  all EKS cluster resource for "calculator-eksctl" had been created
+[ℹ]  deploying stack "eksctl-myproject-eksctl-nodegroup-ng-2e8e1187"
+[✔]  all EKS cluster resource for "myproject-eksctl" had been created
 [✔]  saved kubeconfig as "/Users/jrdalino/.kube/config"
-[ℹ]  adding role "arn:aws:iam::707538076348:role/eksctl-calculator-eksctl-nodegrou-NodeInstanceRole-1IGO2PUALGGAC" to auth ConfigMap
+[ℹ]  adding role "arn:aws:iam::707538076348:role/eksctl-myproject-eksctl-nodegrou-NodeInstanceRole-1IGO2PUALGGAC" to auth ConfigMap
 [ℹ]  nodegroup "ng-2e8e1187" has 1 node(s)
 [ℹ]  node "ip-192-168-24-30.ec2.internal" is not ready
 [ℹ]  waiting for at least 2 node(s) to become ready in "ng-2e8e1187"
@@ -86,7 +86,7 @@ $ kubectl get nodes
 [ℹ]  node "ip-192-168-24-30.ec2.internal" is ready
 [ℹ]  node "ip-192-168-35-7.ec2.internal" is ready
 [ℹ]  kubectl command should work with "/Users/jrdalino/.kube/config", try 'kubectl get nodes'
-[✔]  EKS cluster "calculator-eksctl" in "us-east-1" region is ready
+[✔]  EKS cluster "myproject-eksctl" in "us-east-1" region is ready
 ```
 
 ### Step 1.9: Export Worker Role name
@@ -98,6 +98,6 @@ $ echo "export ROLE_NAME=${ROLE_NAME}" >> ~/.bash_profile
 
 ### (Optional) Clean up
 ```
-$ eksctl delete cluster --name=calculator-eksctl
+$ eksctl delete cluster --name=myproject-eksctl
 $ Manually delete Worker Nodes SSH Key
 ```
